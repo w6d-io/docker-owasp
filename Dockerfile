@@ -12,4 +12,4 @@ LABEL maintainer="${USER_NAME} <${USER_EMAIL}>" \
 
 ENV DESIRED_VERSION $DESIRED_VERSION
 RUN mkdir -p /zap/wrk
-RUN chmod 644 /zap/wrk
+RUN chmod 775 /zap/wrk
