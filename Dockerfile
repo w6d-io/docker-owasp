@@ -76,9 +76,6 @@ RUN git clone --depth 1 https://github.com/zaproxy/zaproxy.git && \
 	mv webswing-* webswing && \
 	# Remove Webswing bundled examples
 	rm -Rf webswing/apps/
-RUN pwd
-RUN wget https://github.com/rht-labs/owasp-zap-openshift/blob/master/.xinitrc
-
 
 ENV ZAP_PATH /zap/zap.sh
 # Default port for use with zapcli
@@ -88,14 +85,16 @@ ENV HOME /home/zap/
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-RUN ls
+RUN echo $PWD
+RUN wget https://github.com/rht-labs/owasp-zap-openshift/blob/master/.xinitrc
+COPY .xinitrc /home/zap/
+
 COPY zap* CHANGELOG.md /zap/
 COPY webswing.config /zap/webswing/
 COPY webswing.properties /zap/webswing/
 COPY policies /home/zap/.ZAP_D/policies/
 COPY policies /root/.ZAP_D/policies/
 COPY scripts /home/zap/.ZAP_D/scripts/
-COPY .xinitrc /home/zap/
 
 #Copy doesn't respect USER directives so we need to chown and to do that we need to be root
 USER root
