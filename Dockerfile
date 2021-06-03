@@ -7,7 +7,7 @@ ARG USER_EMAIL="jack.crosnier@w6d.io"
 ARG USER_NAME="Jack CROSNIER"
 LABEL maintainer="${USER_NAME} <${USER_EMAIL}>" \
         org.label-schema.vcs-ref=$VCS_REF \
-        org.label-schema.vcs-url="https://github.com/w6d-io/docker-owasp" \
+        org.label-schema.vcs-url="https://github.com/w6d-io/docker-owaspzap" \
         org.label-schema.build-date=$BUILD_DATE \
         org.label-schema.version=$VERSION
 
