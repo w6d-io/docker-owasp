@@ -1,15 +1,6 @@
-# This dockerfile builds the zap stable release
+# This dockerfile builds the zap weekly release
 FROM ubuntu:20.04
-ARG VCS_REF
-ARG BUILD_DATE
-ARG VERSION
-ARG USER_EMAIL="jack.crosnier@w6d.io"
-ARG USER_NAME="Jack CROSNIER"
-LABEL maintainer="${USER_NAME} <${USER_EMAIL}>" \
-        org.label-schema.vcs-ref=$VCS_REF \
-        org.label-schema.vcs-url="https://github.com/w6d-io/docker-owasp" \
-        org.label-schema.build-date=$BUILD_DATE \
-        org.label-schema.version=$VERSION
+LABEL maintainer="psiinon@gmail.com"
 
 ARG DEBIAN_FRONTEND=noninteractive
 ARG WEBSWING_URL=""
@@ -51,8 +42,9 @@ RUN mkdir /home/zap/.vnc
 
 ENV WEBSWING_VERSION 21.1
 
-# Download and expand the latest stable release
-RUN curl -s https://raw.githubusercontent.com/zaproxy/zap-admin/master/ZapVersions.xml | xmlstarlet sel -t -v //url |grep -i Linux | wget -nv --content-disposition -i - -O - | tar zxv && \
+RUN curl -s https://raw.githubusercontent.com/zaproxy/zap-admin/master/ZapVersions.xml | xmlstarlet sel -t -v //url |grep -i weekly | wget --content-disposition -i - && \
+	unzip *.zip && \
+	rm *.zip && \
 	cp -R ZAP*/* . &&  \
 	rm -R ZAP* && \
 	# Setup Webswing
@@ -79,23 +71,22 @@ ENV LANG=C.UTF-8
 COPY zap* CHANGELOG.md /zap/
 COPY webswing.config /zap/webswing/
 COPY webswing.properties /zap/webswing/
-COPY policies /home/zap/.ZAP/policies/
-COPY policies /root/.ZAP/policies/
-# The scan script loads the scripts from dev home dir.
+COPY policies /home/zap/.ZAP_D/policies/
+COPY policies /root/.ZAP_D/policies/
 COPY scripts /home/zap/.ZAP_D/scripts/
 COPY .xinitrc /home/zap/
 
 #Copy doesn't respect USER directives so we need to chown and to do that we need to be root
 USER root
 
-RUN chown zap:zap /zap/* && \
+RUN chown zap:zap /zap/* CHANGELOG.md && \
 	chown zap:zap /zap/webswing/webswing.config && \
 	chown zap:zap /zap/webswing/webswing.properties && \
-	chown zap:zap -R /home/zap/.ZAP/ && \
+	chown zap:zap -R /home/zap/.ZAP_D/ && \
 	chown zap:zap /home/zap/.xinitrc && \
 	chmod a+x /home/zap/.xinitrc
 
-HEALTHCHECK --retries=5 --interval=5s CMD zap-cli status
+#Change back to zap at the end
+USER zap
 
-RUN mkdir -p /zap/wrk
-RUN chmod 775 /zap/wrk
+HEALTHCHECK --retries=5 --interval=5s CMD zap-cli status
