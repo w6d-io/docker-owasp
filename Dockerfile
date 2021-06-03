@@ -74,6 +74,8 @@ ENV ZAP_PORT 8080
 ENV HOME /home/zap/
 
 
+RUN wget https://github.com/rht-labs/owasp-zap-openshift/blob/master/.xinitrc
+COPY .xinitrc /home/zap/
 COPY zap-x.sh /zap/
 COPY zap-* /zap/
 COPY zap_* /zap/
