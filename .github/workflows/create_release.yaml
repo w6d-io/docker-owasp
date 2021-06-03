@@ -58,7 +58,7 @@ jobs:
             BUILD_DATE=${{ steps.build_var.outputs.BUILD_DATE }}
             PROJECT_URL=${{ steps.build_var.outputs.PROJECT_URL }}
           tags: |
-            w6dio/owasp-zap:${{ steps.tag_and_prepare_release.outputs.tag }}
+            w6dio/docker-owaspzap:${{ steps.tag_and_prepare_release.outputs.tag }}
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}

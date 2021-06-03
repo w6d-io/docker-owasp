@@ -1,5 +1,5 @@
 
-IMG ?= w6dio/owasp-zap:latest
+IMG ?= w6dio/docker-owaspzap:latest
 
 
 REF=$(shell git symbolic-ref --quiet HEAD 2> /dev/null)
