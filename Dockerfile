@@ -76,7 +76,7 @@ RUN git clone --depth 1 https://github.com/zaproxy/zaproxy.git && \
 	mv webswing-* webswing && \
 	# Remove Webswing bundled examples
 	rm -Rf webswing/apps/
-
+RUN pwd
 RUN wget https://github.com/rht-labs/owasp-zap-openshift/blob/master/.xinitrc
 
 
