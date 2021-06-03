@@ -67,7 +67,6 @@ RUN git clone --depth 1 https://github.com/zaproxy/zaproxy.git && \
 	cp -R /zap-src/zaproxy/zap/build/distFilesWeekly/* /zap/ && \
 	rm -rf /zap-src/* && \
 	cd /zap/ && \
-	wget https://github.com/rht-labs/owasp-zap-openshift/blob/master/.xinitrc && \
 	# Setup Webswing
 	if [ -z "$WEBSWING_URL" ] ; \
 	then curl -s -L  "https://storage.googleapis.com/builds.webswing.org/releases/webswing-examples-eval-${WEBSWING_VERSION}-distribution.zip" > webswing.zip; \
@@ -77,6 +76,9 @@ RUN git clone --depth 1 https://github.com/zaproxy/zaproxy.git && \
 	mv webswing-* webswing && \
 	# Remove Webswing bundled examples
 	rm -Rf webswing/apps/
+
+RUN wget https://github.com/rht-labs/owasp-zap-openshift/blob/master/.xinitrc
+
 
 ENV ZAP_PATH /zap/zap.sh
 # Default port for use with zapcli
