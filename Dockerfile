@@ -92,7 +92,11 @@ COPY .xinitrc /home/zap/
 COPY zap* CHANGELOG.md /zap/
 COPY webswing.config /zap/webswing/
 COPY webswing.properties /zap/webswing/
-COPY policies /home/zap/.ZAP_D/policies/ /root/.ZAP_D/policies/
+
+RUN echo $PWD
+RUN wget https://github.com/rht-labs/owasp-zap-openshift/tree/master/policies
+COPY policies /home/zap/.ZAP_D/policies/
+COPY policies /root/.ZAP_D/policies/
 COPY scripts /home/zap/.ZAP_D/scripts/
 
 #Copy doesn't respect USER directives so we need to chown and to do that we need to be root
