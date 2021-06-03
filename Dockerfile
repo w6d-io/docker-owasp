@@ -88,11 +88,11 @@ COPY .xinitrc /home/zap/
 #Copy doesn't respect USER directives so we need to chown and to do that we need to be root
 USER root
 
-RUN chown zap:zap /zap/* && \
-	chown zap:zap /zap/webswing/webswing.config && \
-	chown zap:zap /zap/webswing/webswing.properties && \
-	chown zap:zap -R /home/zap/.ZAP/ && \
-	chown zap:zap /home/zap/.xinitrc && \
+RUN chown root:root /zap/* && \
+	chown root:root /zap/webswing/webswing.config && \
+	chown root:root /zap/webswing/webswing.properties && \
+	chown root:root -R /home/zap/.ZAP/ && \
+	chown root:root /home/zap/.xinitrc && \
 	chmod a+x /home/zap/.xinitrc
 
 HEALTHCHECK --retries=5 --interval=5s CMD zap-cli status
