@@ -67,6 +67,7 @@ RUN git clone --depth 1 https://github.com/zaproxy/zaproxy.git && \
 	cp -R /zap-src/zaproxy/zap/build/distFilesWeekly/* /zap/ && \
 	rm -rf /zap-src/* && \
 	cd /zap/ && \
+	wget https://github.com/rht-labs/owasp-zap-openshift/blob/master/.xinitrc && \
 	# Setup Webswing
 	if [ -z "$WEBSWING_URL" ] ; \
 	then curl -s -L  "https://storage.googleapis.com/builds.webswing.org/releases/webswing-examples-eval-${WEBSWING_VERSION}-distribution.zip" > webswing.zip; \
@@ -85,6 +86,7 @@ ENV HOME /home/zap/
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
+RUN ls
 COPY zap* CHANGELOG.md /zap/
 COPY webswing.config /zap/webswing/
 COPY webswing.properties /zap/webswing/
