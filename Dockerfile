@@ -73,16 +73,13 @@ ENV ZAP_PATH /zap/zap.sh
 ENV ZAP_PORT 8080
 ENV HOME /home/zap/
 
-
-RUN wget https://github.com/rht-labs/owasp-zap-openshift/blob/master/.xinitrc
-COPY .xinitrc /home/zap/
 COPY zap-x.sh /zap/
 COPY zap-* /zap/
 COPY zap_* /zap/
 COPY webswing.config /zap/webswing-2.3/
 COPY policies /home/zap/.ZAP/policies/
+RUN wget https://github.com/rht-labs/owasp-zap-openshift/blob/master/.xinitrc
 COPY .xinitrc /home/zap/
-
 
 #Copy doesn't respect USER directives so we need to chown and to do that we need to be root
 USER root
