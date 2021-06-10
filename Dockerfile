@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -q -y --fix-missing \
 	openjdk-11-jdk \
 	wget \
 	curl \
+	jq && \
 	xmlstarlet \
 	unzip \
 	git \
